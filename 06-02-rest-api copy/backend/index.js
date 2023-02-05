@@ -1,6 +1,6 @@
 import express from 'express';
 import {getToken, checkThePhoneNumber, sendTokenToSMS} from './phone.js'
-import {getWelcomeTemplate,checkEmail,sendTemplateToEmail} from './email.js'
+import {getWelcomeTemplate, checkEmail , sendTemplateToEmail} from './email.js'
 import swaggerUi from 'swagger-ui-express'
 import swaggerJSDoc from 'swagger-jsdoc';
 import { options } from './swagger/config.js';
@@ -61,8 +61,9 @@ app.post('/tokens/phone', (req,res) => {
 })
 
 app.post('/users', (req,res) => {
-    const user = req.body.myUser
-    const isValid = checkEmail(user, email)
+    const user = req.body.myuser
+    console.log(user);
+    const isValid = checkEmail(user.email)
     if(isValid) {
         const myTemplate = getWelcomeTemplate(user)
 

@@ -1,7 +1,5 @@
 import coolsms from 'coolsms-node-sdk'
-import dotenv from 'dotenv'
-
-dotenv.config()
+import 'dotenv/config'
 
 export function checkThePhoneNumber(phoneNumber) {
     if(phoneNumber.length !== 10 && phoneNumber.length !== 11) {
