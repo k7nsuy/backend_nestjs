@@ -9,8 +9,6 @@ services:
             - 3000:3000
 
     my-database:
-        build:
-            context: .
-            dockerfile: Dockerfile.mongo
+        image: mongo:5
         ports:
             - 27017:27017
