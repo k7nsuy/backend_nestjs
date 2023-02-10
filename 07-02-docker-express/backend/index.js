@@ -5,6 +5,8 @@ import swaggerUi from 'swagger-ui-express'
 import swaggerJSDoc from 'swagger-jsdoc';
 import { options } from './swagger/config.js';
 import cors from 'cors'
+import mongoose from 'mongoose';
+import { Board } from './models/board.model.js';
 
 
 const app = express()
@@ -18,33 +20,34 @@ app.use(express.json())
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJSDoc(options)));
 
 
-app.get('/boards', (req,res) => {
+app.get('/boards', async (req,res) => {
     // 1. 데이터를 조회하는 로직 => DB에 접속해서 데이터 꺼내오기
-    const result = [
-        {number: 1,
-        writer: '철수',
-        title: '제목',
-        contents: '내용'},
-        {number: 2,
-        writer: '철수2',
-        title: '제목',
-        contents: '내용'},
-        {number: 3,
-        writer: '철수3',
-        title: '제목',
-        contents: '내용'}
-    ]
-
-    // 2. 꺼내온 결과 응답 주기
-res.send(result)
+    try {
+        const result = await Board.find()
+        // 2. 꺼내온 결과 응답 주기
+        res.send(result)
+    } catch (error) {
+        console.log(error);        
+    }
 })
 
-app.post('/boards', (req,res) => {
+app.post('/boards',async (req,res) => {
     // 1. 데이터를 등록하는 로직 => DB에 접속해서 데이터 저장
-    console.log(req.body)
+    console.log(req.body);
+    const board = new Board({
+        writer: req.body.writer,
+        title: req.body.title,
+        contents: req.body.contents
+    })
 
+    try {
+        await board.save()
+        console.log("qqqqqq");
+    } catch (error) {
+        console.log(error);        
+    }
     // 2. 저장 결과 응답 주기
-    res.send('게시물 등록에 성공하였습니다.')
+    res.send('게시물 등록에 성공.')
 })
 
 app.post('/tokens/phone', (req,res) => {
@@ -71,6 +74,9 @@ app.post('/users', (req,res) => {
         res.send('가입 완료')
     }
 })
+
+mongoose.set("strictQuery", false);
+mongoose.connect('mongodb://my-database:27018/docker-mongo');
 
 app.listen(3000, ()=> {
     console.log(`This server listening port ${port} ✅`);

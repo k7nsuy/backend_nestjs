@@ -5,10 +5,13 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
+        volumes:
+            - ./index.js:/docker_Test/index.js
+            - ./email.js:/docker_Test/email.js
         ports:
             - 3000:3000
 
     my-database:
         image: mongo:5
         ports:
-            - 27017:27017
+            - 27018:27018
