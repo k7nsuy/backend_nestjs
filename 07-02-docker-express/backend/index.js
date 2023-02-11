@@ -22,13 +22,9 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJSDoc(options)));
 
 app.get('/boards', async (req,res) => {
     // 1. 데이터를 조회하는 로직 => DB에 접속해서 데이터 꺼내오기
-    try {
         const result = await Board.find()
         // 2. 꺼내온 결과 응답 주기
         res.send(result)
-    } catch (error) {
-        console.log(error);        
-    }
 })
 
 app.post('/boards',async (req,res) => {
@@ -40,12 +36,7 @@ app.post('/boards',async (req,res) => {
         contents: req.body.contents
     })
 
-    try {
-        await board.save()
-        console.log("qqqqqq");
-    } catch (error) {
-        console.log(error);        
-    }
+    await board.save()
     // 2. 저장 결과 응답 주기
     res.send('게시물 등록에 성공.')
 })
@@ -75,7 +66,6 @@ app.post('/users', (req,res) => {
     }
 })
 
-mongoose.set("strictQuery", false);
 mongoose.connect('mongodb://my-database:27018/docker-mongo');
 
 app.listen(3000, ()=> {
