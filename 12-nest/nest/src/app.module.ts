@@ -1,4 +1,4 @@
-import { ApolloDriverConfig } from '@nestjs/apollo';
+import { ApolloDriverConfig } from '@nestjs/apollo/dist/interfaces';
 import { ApolloDriver } from '@nestjs/apollo/dist/drivers';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
@@ -6,7 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { BoardModule } from './apis/boards/boards.module';
 import { Board } from './apis/boards/entities/board.entity';
 import { Product } from './apis/products/entitles/products.entity';
-import { ProductCategory } from './apis/productsCategory/productsCategory.entity';
+import { ProductCategory } from './apis/productsCategory/entities/productsCategory.entity';
 import { ProductSaleslocation } from './apis/productsSaleslocation/entities/productsSaleslocation.entity';
 import { ProductsTags } from './apis/productsTags/productsTags.entity';
 import { User } from './apis/users/users.entity';

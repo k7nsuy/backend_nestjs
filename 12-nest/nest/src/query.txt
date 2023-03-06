@@ -1,0 +1,35 @@
+use codecamp
+;
+
+select * from product
+;
+
+insert into product(id,name,description,price,isSoldout)
+	values(uuid(), "mouse", "good mouse", 15000, false)
+    ;
+
+insert into product(id,name,description,price,isSoldout)
+	values(uuid(), "labtop", "good laptop", 150000, false)
+    ;
+    
+select * from product_saleslocation
+;
+
+insert into product_saleslocation(id, address, addressDetail, lat, lng, meetingTime)
+	values(uuid(), "gangseo", "meongji", "0.0", "0.1","2022-10-10")
+    ;
+    
+update product
+	set name = "mouse"
+	where price = 15000
+    ;
+    
+update product
+	set productSaleslocationId = "d4d66171-bbdf-11ed-9d89-00155d504406"
+    where name = "labtop"
+    ;
+    
+select p.id, name, price, address, addressDetail
+	from product p, product_saleslocation ps
+    where p.productSaleslocationId = ps.id
+    ;

@@ -1,4 +1,4 @@
-import { ProductCategory } from 'src/apis/productsCategory/productsCategory.entity';
+import { ProductCategory } from 'src/apis/productsCategory/entities/productsCategory.entity';
 import { ProductsTags } from 'src/apis/productsTags/productsTags.entity';
 import { User } from 'src/apis/users/users.entity';
 import {
