@@ -1,19 +1,23 @@
 import { ApolloDriverConfig } from '@nestjs/apollo/dist/interfaces';
 import { ApolloDriver } from '@nestjs/apollo/dist/drivers';
 import { Module } from '@nestjs/common';
-import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BoardModule } from './apis/boards/boards.module';
 import { Board } from './apis/boards/entities/board.entity';
-import { Product } from './apis/products/entitles/products.entity';
+import { Product } from './apis/products/entities/products.entity';
 import { ProductCategory } from './apis/productsCategory/entities/productsCategory.entity';
 import { ProductSaleslocation } from './apis/productsSaleslocation/entities/productsSaleslocation.entity';
 import { ProductsTags } from './apis/productsTags/productsTags.entity';
 import { User } from './apis/users/users.entity';
+import { ProductCategoryModule } from './apis/productsCategory/productCategory.module';
+import { ProductModule } from './apis/products/products.module';
+import { GraphQLModule } from '@nestjs/graphql';
 
 @Module({
   imports: [
     BoardModule,
+    ProductModule,
+    ProductCategoryModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: 'src/commons/graphql/schema.gql',
