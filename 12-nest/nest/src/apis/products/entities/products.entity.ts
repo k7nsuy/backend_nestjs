@@ -4,6 +4,7 @@ import { ProductsTags } from 'src/apis/productsTags/productsTags.entity';
 import { User } from 'src/apis/users/users.entity';
 import {
   Column,
+  DeleteDateColumn,
   Entity,
   JoinColumn,
   JoinTable,
@@ -36,6 +37,9 @@ export class Product {
   @Field(() => Boolean)
   @Column({ default: false })
   isSoldout: boolean;
+
+  @DeleteDateColumn()
+  deletedAt: Date;
 
   @Field(() => ProductSaleslocation)
   @JoinColumn()

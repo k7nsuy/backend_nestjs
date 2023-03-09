@@ -62,6 +62,7 @@ type Mutation {
   createBoard(writer: String!, title: String!, contents: String!, createBoardInput: CreateBoardInput!): String!
   createProduct(createProductInput: CreateProductInput!): Product!
   updateProduct(productId: String!, updateProductInput: UpdateProductInput!): Product!
+  deleteProduct(productId: String!): Boolean!
   createProductCategory(name: String!): ProductCategory!
 }
 
@@ -75,10 +76,20 @@ input CreateProductInput {
   name: String!
   description: String!
   price: Int!
+  productSaleslocation: ProductSaleslocationInput!
+}
+
+input ProductSaleslocationInput {
+  address: String!
+  addressDetail: String!
+  lat: Float!
+  lng: Float!
+  meetingTime: DateTime!
 }
 
 input UpdateProductInput {
   name: String
   description: String
   price: Int
+  productSaleslocation: ProductSaleslocationInput
 }

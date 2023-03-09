@@ -3,9 +3,10 @@ import { Module } from '@nestjs/common';
 import { ProductResolver } from './products.resolver';
 import { ProductService } from './products.service';
 import { Product } from './entities/products.entity';
+import { ProductSaleslocation } from '../productsSaleslocation/entities/productsSaleslocation.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Product])],
+  imports: [TypeOrmModule.forFeature([Product, ProductSaleslocation])],
   providers: [ProductResolver, ProductService],
 })
 export class ProductModule {}
