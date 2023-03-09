@@ -24,6 +24,8 @@ type User {
   id: String!
   email: String!
   password: String!
+  name: String!
+  age: Int!
 }
 
 type ProductSaleslocation {
@@ -64,6 +66,8 @@ type Mutation {
   updateProduct(productId: String!, updateProductInput: UpdateProductInput!): Product!
   deleteProduct(productId: String!): Boolean!
   createProductCategory(name: String!): ProductCategory!
+  createUser(email: String!, password: String!, name: String!, age: Float!): User!
+  login(email: String!, password: String!): String!
 }
 
 input CreateBoardInput {
