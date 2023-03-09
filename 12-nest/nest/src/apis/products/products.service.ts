@@ -3,6 +3,7 @@ import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductSaleslocation } from '../productsSaleslocation/entities/productsSaleslocation.entity';
+import { ProductTag } from '../productsTags/productTags.entity';
 
 @Injectable()
 export class ProductService {
@@ -12,18 +13,21 @@ export class ProductService {
 
     @InjectRepository(ProductSaleslocation)
     private readonly productSaleslocationRepository: Repository<ProductSaleslocation>,
+
+    @InjectRepository(ProductTag)
+    private readonly productTagRepository: Repository<ProductTag>,
   ) {}
 
   async findAll() {
     return await this.productRepository.find({
-      relations: ['productSaleslocation', 'productCategory'],
+      relations: ['productSaleslocation', 'productCategory', 'productTags'],
     });
   }
 
   async findOne({ productId }) {
     return await this.productRepository.findOne({
       where: { id: productId },
-      relations: ['productSaleslocation', 'productCategory'],
+      relations: ['productSaleslocation', 'productCategory', 'productTags'],
     });
   }
 
@@ -39,19 +43,40 @@ export class ProductService {
     // });
 
     // 2. 상품과 상품거래 위치 같이 등록
-    const { productSaleslocation, productCategotyId, ...product } =
+    const { productSaleslocation, productCategotyId, productTags, ...product } =
       createProductInput;
     const result = await this.productSaleslocationRepository.save({
       ...productSaleslocation,
     });
 
-    const result2 = await this.productRepository.save({
+    // productTags // ["#electronics, #computer"]
+    const result2 = []; // [{name: ..., id: ...}]
+    for (let i = 0; i < productTags.length; i++) {
+      const tagName = productTags[i].replace('#', '');
+
+      // check the tags that has already registered
+      const checkTag = await this.productTagRepository.findOne({
+        where: { name: tagName },
+      });
+
+      // if the tags has been existed
+      if (checkTag) {
+        result2.push(checkTag);
+        // if the tags hasn't been existed
+      } else {
+        const newTag = await this.productTagRepository.save({ name: tagName });
+        result2.push(newTag);
+      }
+    }
+
+    const result3 = await this.productRepository.save({
       ...product,
       productSaleslocation: result, // result 통째로 넣기 vs id만 넣기
       productCategory: { id: productCategotyId },
+      productTags: result2,
     });
 
-    return result2;
+    return result3;
   }
 
   async update({ productId, updateProductInput }) {

@@ -1,6 +1,6 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { ProductCategory } from 'src/apis/productsCategory/entities/productsCategory.entity';
-import { ProductsTags } from 'src/apis/productsTags/productsTags.entity';
+import { ProductTag } from 'src/apis/productsTags/productTags.entity';
 import { User } from 'src/apis/users/users.entity';
 import {
   Column,
@@ -54,8 +54,8 @@ export class Product {
   @ManyToOne(() => User)
   user: User;
 
-  @Field(() => ProductsTags)
   @JoinTable()
-  @ManyToMany(() => ProductsTags, (productsTags) => productsTags.products)
-  productTags: ProductsTags[];
+  @ManyToMany(() => ProductTag, (productTags) => productTags.products)
+  @Field(() => [ProductTag])
+  productTags: ProductTag[];
 }

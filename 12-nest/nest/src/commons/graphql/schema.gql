@@ -14,7 +14,7 @@ type ProductCategory {
   name: String!
 }
 
-type ProductsTags {
+type ProductTag {
   id: String!
   name: String!
   products: [Product!]!
@@ -49,7 +49,7 @@ type Product {
   productSaleslocation: ProductSaleslocation!
   productCategory: ProductCategory!
   user: User!
-  productTags: ProductsTags!
+  productTags: [ProductTag!]!
 }
 
 type Query {
@@ -77,6 +77,8 @@ input CreateProductInput {
   description: String!
   price: Int!
   productSaleslocation: ProductSaleslocationInput!
+  productCategotyId: String!
+  productTags: [String!]!
 }
 
 input ProductSaleslocationInput {
@@ -92,4 +94,6 @@ input UpdateProductInput {
   description: String
   price: Int
   productSaleslocation: ProductSaleslocationInput
+  productCategotyId: String
+  productTags: [String!]
 }

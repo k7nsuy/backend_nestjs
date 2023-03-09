@@ -7,11 +7,11 @@ import { Board } from './apis/boards/entities/board.entity';
 import { Product } from './apis/products/entities/products.entity';
 import { ProductCategory } from './apis/productsCategory/entities/productsCategory.entity';
 import { ProductSaleslocation } from './apis/productsSaleslocation/entities/productsSaleslocation.entity';
-import { ProductsTags } from './apis/productsTags/productsTags.entity';
 import { User } from './apis/users/users.entity';
 import { ProductCategoryModule } from './apis/productsCategory/productCategory.module';
 import { ProductModule } from './apis/products/products.module';
 import { GraphQLModule } from '@nestjs/graphql';
+import { ProductTag } from './apis/productsTags/productTags.entity';
 
 @Module({
   imports: [
@@ -34,7 +34,7 @@ import { GraphQLModule } from '@nestjs/graphql';
         Product,
         ProductCategory,
         ProductSaleslocation,
-        ProductsTags,
+        ProductTag,
         User,
       ],
       synchronize: true,

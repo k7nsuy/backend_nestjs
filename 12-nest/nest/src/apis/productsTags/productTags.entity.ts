@@ -4,16 +4,16 @@ import { Product } from '../products/entities/products.entity';
 
 @Entity()
 @ObjectType()
-export class ProductsTags {
+export class ProductTag {
   @Field(() => String)
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Field(() => String)
   @Column()
+  @Field(() => String)
   name: string;
 
+  @ManyToMany(() => Product, (products) => products.productTags)
   @Field(() => [Product])
-  @ManyToMany(() => Product, (product) => product.productTags)
   products: Product[];
 }
