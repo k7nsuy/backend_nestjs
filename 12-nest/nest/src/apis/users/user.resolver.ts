@@ -3,6 +3,9 @@ import { User } from './entities/users.entity';
 import { UserService } from './user.service';
 import * as bcrypt from 'bcrypt';
 import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { GqlAccessGuard } from 'src/commons/auth/gql-auth.guard';
+import { CurrentUser } from 'src/commons/auth/gql-user.param';
 
 @Resolver()
 export class UserResolver {
@@ -24,10 +27,12 @@ export class UserResolver {
     });
   }
 
-  @UseGuards()
+  @UseGuards(GqlAccessGuard)
   @Query(() => String)
-  fetchUser() {
+  fetchUser(@CurrentUser() currentUser: any) {
     console.log('fetch 실행');
-    return 'qqq';
+    console.log('User Information, ' + JSON.stringify(currentUser));
+
+    return 'fetch 실행 완료';
   }
 }
