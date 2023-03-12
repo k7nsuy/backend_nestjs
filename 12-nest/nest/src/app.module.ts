@@ -14,9 +14,11 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ProductTag } from './apis/productsTags/productTags.entity';
 import { UserModule } from './apis/users/user.module';
 import { AuthModule } from './apis/auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     BoardModule,
     ProductModule,
     ProductCategoryModule,

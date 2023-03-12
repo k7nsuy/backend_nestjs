@@ -4,9 +4,9 @@ import { Strategy } from 'passport-google-oauth20';
 export class JwtGoogleStrategy extends PassportStrategy(Strategy, 'google') {
   constructor() {
     super({
-      clientId: '',
-      clientSecret: '',
-      callbackURL: '',
+      clientID: process.env.CLIENT_KEY,
+      clientSecret: process.env.CLIENT_SECRET,
+      callbackURL: 'http://localhost:3000/login/google',
       scope: ['email', 'profile'],
     });
   }
@@ -16,10 +16,11 @@ export class JwtGoogleStrategy extends PassportStrategy(Strategy, 'google') {
     console.log(refreshToken);
     console.log(profile);
 
-    // return {
-    //   email: payload.email,
-    //   id: payload.sub,
-    //   age: 13,
-    // };
+    return {
+      email: profile.emails[0].value,
+      password: '1234',
+      name: profile.displayName,
+      age: 0,
+    };
   }
 }

@@ -12,7 +12,7 @@ export class AuthService {
     );
 
     // 개발 환경
-    res.setHeader('Set-Cookie', `refreshToken=${refreshToken}`);
+    res.setHeader('Set-Cookie', `refreshToken=${refreshToken}; path=/;`); // path 설정 필요
   }
 
   // 배포환경
